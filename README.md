@@ -1,1 +1,13 @@
 # predicting-text-difficulty
+## Motivation
+The level of textual difficulty and readability has a crucial influence on how readers get information from written media. Categorizing texts by difficulty level may benefit readers by allowing them to know beforehand which texts may be more or less difficult to comprehend. The aspiration of the supervised learning part of this paper is to build a classification model that accurately classifies given texts into two classes: simple text and complex text. The focus of this task is to achieve a high accuracy in classification. Therefore, the performance of the classifiers are evaluated solely on accuracy.
+## Data Source
+The primary data source utilized was the UMich SIADS 695 Fall20: Predicting text difficulty dataset. This dataset was accessed via Kaggle.com as a downloadable comma-separated value document; the direct link to the data can be found in the references section of this document.
+The main datasets for both supervised and unsupervised learning tasks were the WikiLarge_train.csv file and WikiLarge_Test.csv file. The WikiLarge_Train.csv file includes texts and labels of the texts. The texts are labeled 0 if the text is simple, and 1 if the text is complex. The WikiLarge_Test.csv file includes texts only. For the supervised learning task, the WikiLarge_Train.csv dataset was used for training the models.
+In addition to the primary dataset, a number of other files provided in the Kaggle dataset were utilized to extract features for the classification task. A list of basic English words from Dale Chall word list (dale_chall.txt), the Age of Acquisition dataset (AoA_51715_words.csv), and Concreteness rating data (Concreteness_ratings_Brysbaert_et_al_BRM.txt) were used for feature engineering in the supervised learning task.
+## Methods & Evaluation
+### Data Preparation
+After loading the WikiLarge_train.csv file, the dataset was shuffled and split into three sets: training, development, and test set at 70%, 20%, and 10%, respectively. The training dataset was used for feature extraction and model training, and the development dataset was used for model selection and hyperparameter tuning. However, the test set split from WikiLarge_train.csv was never utilized, as the WikiLarge_test.csv dataset was used instead to get the final accuracy of the model on Kaggle competition.
+### Feature Engineering
+A number of features were created to optimize the classification. A total of 46 numeric features, including 35 Part-of-speech (Pos) tag features, were extracted from the given texts. The features are listed and described in Table 1.
+![Alt text](695_table_1.png)
