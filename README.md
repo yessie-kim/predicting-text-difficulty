@@ -19,7 +19,7 @@ The Dale Chall word list (dale_chall.txt) was utilized to extract the Number of 
 
 In order to estimate the relevance of the features to the label, the Pearson correlation coefficient was calculated between the features and the label. Figure 1 shows that the number of words (word_count) has the largest positive correlation with the label, which indicates that complex texts tend to include more words. Also, the chart shows that words with Pos tag NN (singular noun), JJ (adjective), and NNP (proper noun) appear more in complex texts. Additionally, a more frequent usage of commas was found in complex texts.
 
-![Figure 1](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_figure_1.png)
+![Figure 1](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/corr.png)
 
 On the other side of the spectrum, syllable_1, the number of one syllable words, has the strongest negative correlation coefficient to the label, indicating simple texts contain more one syllable words. In addition, personal pronouns (PRP) were more frequently used in simple texts. Interestingly, words with more than three syllables (syllable_more_than_3) appear to correlate negatively with the label, meaning simpler texts contain words with more than three syllables. Upon further investigation, we found that some of the simple texts consist of one word with more than three syllables, such as ‘International’, ‘Characteristics’.
 
@@ -35,7 +35,7 @@ Due to the large size of the data and the number of features, training random fo
 
 The random forest classifiers were trained with n_estimators of 100, 300, 500 and 700. Overall, the accuracy was slightly higher when using only the features created. The accuracy peaked at 0.7244 and 0.7183 (random forest classifier with features only, and features and tfidf vectorized text, respectively) at 500 estimators. After peaking at 500 estimators, however, we observed a decrease in accuracy, most likely due to overfitting.
 
-![Figure 2](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_figure_2.png)
+![Figure 2](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/acc.png)
 
 As a result, a random forest classifier with an n_estimators of 500 was selected to train on the entire training dataset. We trained the classifier with and without tfidf vectorized text, and the final evaluation was conducted on the test dataset on Kaggle competition. Surprisingly, the accuracy of both classifiers were significantly higher than the accuracy we measured on the development set, scoring 0.7836 and 0.7613 (classifier with, and without tfidf features, respectively) after being fitted with the entire training dataset provided. Furthermore, the accuracy of the classifier with tfidf features was higher than the classifier without tfidf features.
 ## Failure Analysis
