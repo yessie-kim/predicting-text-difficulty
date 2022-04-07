@@ -13,7 +13,7 @@ After loading the WikiLarge_train.csv file, the dataset was shuffled and split i
 ### Feature Engineering
 A number of features were created to optimize the classification. A total of 46 numeric features, including 35 Part-of-speech (Pos) tag features, were extracted from the given texts. The features are listed and described in Table 1.
 
-![table 1]https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_table_1.png
+![table 1](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_table_1.png)
 
 The Dale Chall word list (dale_chall.txt) was utilized to extract the Number of words in the Dale Chall list (dale) feature. The dale feature is calculated as the ratio of the number of words that are in the Dale Chall list to the total number of words in the text after stop words are removed. This feature can be interpreted as the ratio of simpler words to total words in the text. The mean concreteness rating (Conc.M) and the 3 percentage of people who knew the word (Percent_known)from Concreteness_ratings_Brysbaert_et_al_BRM.txt was used to extract Number of words with high concreteness score (conc) and Number of words known by less people (unknown_words). The lists of words scored lower than one standard deviation from the mean in Conc.M and Percent_known were obtained and used to identify more complex and abstract words used in the texts. The AoA score from AoA_51715_words.csv file was used to extract the Number of words with high AoA score ( high_aoa) feature. As with the conc feature, a list of words with AoA Kup scores one standard deviation higher than the mean score were used to identify more difficult words in the texts.
 
