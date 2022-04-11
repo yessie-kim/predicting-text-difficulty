@@ -13,13 +13,13 @@ After loading the WikiLarge_train.csv file, the dataset was shuffled and split i
 ### Feature Engineering
 A number of features were created to optimize the classification. A total of 46 numeric features, including 35 Part-of-speech (Pos) tag features, were extracted from the given texts. The features are listed and described in Table 1.
 
-![table 1](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_table_1.png)
+<img width="735" alt="695_table_1" src="https://user-images.githubusercontent.com/58793983/162791309-ac86e980-5300-498f-80c6-f84a836151b1.png">
 
 The Dale Chall word list (dale_chall.txt) was utilized to extract the Number of words in the Dale Chall list (dale) feature. The dale feature is calculated as the ratio of the number of words that are in the Dale Chall list to the total number of words in the text after stop words are removed. This feature can be interpreted as the ratio of simpler words to total words in the text. The mean concreteness rating (Conc.M) and the 3 percentage of people who knew the word (Percent_known)from Concreteness_ratings_Brysbaert_et_al_BRM.txt was used to extract Number of words with high concreteness score (conc) and Number of words known by less people (unknown_words). The lists of words scored lower than one standard deviation from the mean in Conc.M and Percent_known were obtained and used to identify more complex and abstract words used in the texts. The AoA score from AoA_51715_words.csv file was used to extract the Number of words with high AoA score ( high_aoa) feature. As with the conc feature, a list of words with AoA Kup scores one standard deviation higher than the mean score were used to identify more difficult words in the texts.
 
 In order to estimate the relevance of the features to the label, the Pearson correlation coefficient was calculated between the features and the label. Figure 1 shows that the number of words (word_count) has the largest positive correlation with the label, which indicates that complex texts tend to include more words. Also, the chart shows that words with Pos tag NN (singular noun), JJ (adjective), and NNP (proper noun) appear more in complex texts. Additionally, a more frequent usage of commas was found in complex texts.
 
-![Figure 1](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/corr.png)
+![corr](https://user-images.githubusercontent.com/58793983/162791251-f32571d6-36b1-48a4-883e-6d38358c13f2.png)
 
 On the other side of the spectrum, syllable_1, the number of one syllable words, has the strongest negative correlation coefficient to the label, indicating simple texts contain more one syllable words. In addition, personal pronouns (PRP) were more frequently used in simple texts. Interestingly, words with more than three syllables (syllable_more_than_3) appear to correlate negatively with the label, meaning simpler texts contain words with more than three syllables. Upon further investigation, we found that some of the simple texts consist of one word with more than three syllables, such as ‘International’, ‘Characteristics’.
 
@@ -29,13 +29,13 @@ Initially, three different classifiers were selected for exploration: logistic r
 
 Table 2 compares the logistic regression model and the random forest model. Overall, the random forest classifier performed better than the logistic regression model, so the random forest classifier was selected for the final model. Interestingly, the accuracy of the classifier was higher without tfidf vectorized text, so we continued hyperparameter tuning on random forest classifiers with, and without tfidf vectorized text feature.
 
-![table 2](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/695_table_2.png)
+<img width="749" alt="695_table_2" src="https://user-images.githubusercontent.com/58793983/162791347-af735d85-93fa-4310-ba3a-50fd325e1a77.png">
 
 Due to the large size of the data and the number of features, training random forest classifiers took too long. For this reason, we focused on investigating n_estimators, the number of trees used, of the classifier. Random forest classifiers employ multiple decision trees, and the n_estimators parameter decides the number of trees used in the random forest classifier. In general, models with larger n_estimators perform better, but are at an increased risk of overfitting.
 
 The random forest classifiers were trained with n_estimators of 100, 300, 500 and 700. Overall, the accuracy was slightly higher when using only the features created. The accuracy peaked at 0.7244 and 0.7183 (random forest classifier with features only, and features and tfidf vectorized text, respectively) at 500 estimators. After peaking at 500 estimators, however, we observed a decrease in accuracy, most likely due to overfitting.
 
-![Figure 2](https://raw.githubusercontent.com/yessie-kim/predicting-text-difficulty/main/.github/images/acc.png)
+![acc](https://user-images.githubusercontent.com/58793983/162791368-5e3acf67-2e11-49e5-821d-3b41d868dc16.png)
 
 As a result, a random forest classifier with an n_estimators of 500 was selected to train on the entire training dataset. We trained the classifier with and without tfidf vectorized text, and the final evaluation was conducted on the test dataset on Kaggle competition. Surprisingly, the accuracy of both classifiers were significantly higher than the accuracy we measured on the development set, scoring 0.7836 and 0.7613 (classifier with, and without tfidf features, respectively) after being fitted with the entire training dataset provided. Furthermore, the accuracy of the classifier with tfidf features was higher than the classifier without tfidf features.
 ## Failure Analysis
